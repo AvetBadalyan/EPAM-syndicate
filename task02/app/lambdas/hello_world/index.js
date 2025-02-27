@@ -5,13 +5,14 @@ exports.handler = async event => {
   if (path === '/hello' && method === 'GET') {
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: 'Hello from Lambda' }), // ✅ Correct format
+      body: JSON.stringify({ statusCode: 200, message: 'Hello from Lambda' }), // ✅ Correct format
     };
   }
 
   return {
     statusCode: 400,
     body: JSON.stringify({
+      statusCode: 400,
       message: `Bad request syntax or unsupported method. Request path: ${path}. HTTP method: ${method}`,
     }),
   };
