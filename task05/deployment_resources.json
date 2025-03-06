@@ -7,6 +7,7 @@
             "logs:CreateLogGroup",
             "logs:CreateLogStream",
             "logs:PutLogEvents",
+            "logs:DeleteLogGroup",
             "dynamodb:GetItem",
             "dynamodb:Query",
             "dynamodb:PutItem",
@@ -22,6 +23,9 @@
       ],
       "Version": "2012-10-17"
     },
+    "${deploy_target_bucket}": {
+      "resource_type": "s3_bucket"
+    },
     "resource_type": "iam_policy",
     "tags": {}
   },
@@ -31,9 +35,29 @@
     "dependencies": [],
     "resources": {
       "/events": {
-        "enable_cors": true
+        "enable_cors": true,
+        "POST": {
+          "authorization_type": "NONE",
+          "integration_type": "lambda",
+          "lambda_name": "api_handler",
+          "api_key_required": false,
+          "method_request_parameters": {},
+          "integration_request_body_template": {},
+          "responses": [],
+          "integration_responses": [],
+          "default_error_pattern": true
+        }
       }
     },
     "tags": {}
+  },
+  "Events": {
+    "resource_type": "dynamodb_table",
+    "hash_key_name": "id",
+    "hash_key_type": "S",
+    "read_capacity": 1,
+    "write_capacity": 1,
+    "global_indexes": [],
+    "autoscaling": []
   }
 }
