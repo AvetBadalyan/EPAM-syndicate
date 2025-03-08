@@ -15,7 +15,7 @@ exports.handler = async event => {
     body: JSON.stringify({
       statusCode: 400,
       message:
-        'Bad request syntax or unsupported method. Request path: /cmtr-cb055426. HTTP method: GET',
+        'Bad request syntax or unsupported method. Request path: /cmtr-7776e06b. HTTP method: GET',
     }),
   };
 };
