@@ -8,9 +8,23 @@
   "memory": 128,
   "timeout": 100,
   "lambda_path": "lambdas\\audit_producer",
-  "dependencies": [],
-  "event_sources": [],
-  "env_variables": {},
+  "dependencies": [
+    {
+      "resource_type": "dynamodb_table",
+      "resource_name": "Configuration"
+    }
+  ],
+  "event_sources": [
+    {
+      "resource_type": "dynamodb_trigger",
+      "target_table": "Configuration",
+      "batch_size": 10
+    }
+  ],
+  "env_variables": {
+    "target_table": "${target_table}",
+    "region": "${region}"
+  },
   "publish_version": true,
   "alias": "${lambdas_alias_name}",
   "url_config": {},
